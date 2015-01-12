@@ -136,6 +136,9 @@ public class Server
   /** the log threshold for the server */
    private String logThreshold = null;
 
+   /** should we output server log to console? */
+   private boolean outputToConsole = true;
+
    /** Property to set the server log Threshold **/
    public final static String SVR_LOG_PROP = "jboss.server.log.threshold";
 
@@ -835,6 +838,16 @@ public class Server
       this.logThreshold = logThreshold;
    }
 
+
+   public boolean outputToConsole()
+   {
+      return outputToConsole;
+   }
+
+   public void setOutputToConsole(boolean outputToConsole)
+   {
+      this.outputToConsole = outputToConsole;
+   }
 
    /*
     * Code below this marker has been ported from jboss-test to supply 

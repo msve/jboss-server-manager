@@ -106,8 +106,10 @@ public abstract class ServerController
       File binDir = new File(manager.getJBossHome(), "/bin");
       final Process process = Runtime.getRuntime().exec(execCmd, null, binDir);
 
-      new Thread(new ConsoleConsumer(process.getInputStream())).start();
-      new Thread(new ConsoleConsumer(process.getErrorStream())).start();
+      if (server.outputToConsole()) {
+         new Thread(new ConsoleConsumer(process.getInputStream(), "eap5: ")).start();
+         new Thread(new ConsoleConsumer(process.getErrorStream(), "eap5: ")).start();
+      }
 
       final BufferedReader errStream = new BufferedReader(new InputStreamReader(process.getErrorStream()));
       final BufferedReader inStream = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -641,24 +643,25 @@ public abstract class ServerController
    }
 
    private static class ConsoleConsumer implements Runnable {
-     private final InputStream stream;
+      private final InputStream stream;
+      private final String prefix;
 
-    ConsoleConsumer(InputStream stream) {
-        this.stream = stream;
-     }
+      ConsoleConsumer(InputStream stream, String prefix) {
+         this.stream = stream;
+         this.prefix = prefix != null ? prefix : "";
+      }
 
-             @Override
-             public void run() {
-                 final BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-                 String line = null;
-                 try {
-                     while ((line = reader.readLine()) != null) {
-                         System.out.println(line);
-                     }
-                 } catch (IOException e) {
-
-                 }
-
-             }
+      public void run() {
+         final BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+         String line = null;
+         try {
+            while ((line = reader.readLine()) != null) {
+               System.out.println(prefix + line);
+            }
+         } catch (IOException e) {
+            e.printStackTrace();
          }
+      }
+   }
+
 }
