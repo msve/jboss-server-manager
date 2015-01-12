@@ -107,8 +107,9 @@ public abstract class ServerController
       final Process process = Runtime.getRuntime().exec(execCmd, null, binDir);
 
       if (server.outputToConsole()) {
-         new Thread(new ConsoleConsumer(process.getInputStream(), "eap5: ")).start();
-         new Thread(new ConsoleConsumer(process.getErrorStream(), "eap5: ")).start();
+         String prefix = server.getOutputPrefix() == null ? "" : (server.getOutputPrefix() + ": ");
+         new Thread(new ConsoleConsumer(process.getInputStream(), prefix)).start();
+         new Thread(new ConsoleConsumer(process.getErrorStream(), prefix)).start();
       }
 
       final BufferedReader errStream = new BufferedReader(new InputStreamReader(process.getErrorStream()));
