@@ -13,7 +13,7 @@
   <!-- Artifact Information -->
   <groupId>org.jboss.jbossas</groupId>
   <artifactId>jboss-server-manager</artifactId>
-  <version>1.0.5-SNAPSHOT</version>
+  <version>1.0.6-SNAPSHOT</version>
   <name>JBossAS Server Manager</name>
   <description />
 

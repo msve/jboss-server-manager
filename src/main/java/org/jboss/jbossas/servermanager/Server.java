@@ -136,6 +136,12 @@ public class Server
   /** the log threshold for the server */
    private String logThreshold = null;
 
+   /** should we output server log to console? */
+   private boolean outputToConsole = true;
+
+   /** should be console output prefixed with given string? */
+   private String outputPrefix = null;
+
    /** Property to set the server log Threshold **/
    public final static String SVR_LOG_PROP = "jboss.server.log.threshold";
 
@@ -835,6 +841,26 @@ public class Server
       this.logThreshold = logThreshold;
    }
 
+
+   public boolean outputToConsole()
+   {
+      return outputToConsole;
+   }
+
+   public void setOutputToConsole(boolean outputToConsole)
+   {
+      this.outputToConsole = outputToConsole;
+   }
+
+   public String getOutputPrefix()
+   {
+      return outputPrefix;
+   }
+
+   public void setOutputPrefix(String outputPrefix)
+   {
+      this.outputPrefix = outputPrefix;
+   }
 
    /*
     * Code below this marker has been ported from jboss-test to supply 
