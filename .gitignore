@@ -1,5 +1,7 @@
 .classpath
 .project
 .settings
+.idea
 .svn
 target
+jboss-server-manager.iml
